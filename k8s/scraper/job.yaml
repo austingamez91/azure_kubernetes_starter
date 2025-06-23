@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: scraper-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: scraper
+        image: austingscontainerregistry.azurecr.io/scraper:latest
+        env:
+        - name: DATABASE_URL
+          value: postgresql+asyncpg://postgres:dnl_challenge@postgres:5432/car_db
+      restartPolicy: Never
+  backoffLimit: 1
